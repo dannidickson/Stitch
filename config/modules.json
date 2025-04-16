@@ -1,0 +1,37 @@
+{
+  "versions": [
+    {
+      "name": "5"
+    },
+    {
+      "name": "6"
+    }
+  ],
+  "modules": [
+    {
+      "name": "silverstripe/recipe-cms",
+      "description": "Base page and asset content-editing recipe for a Silverstripe"
+    },
+    {
+      "name": "silverstripe/linkfield",
+      "description": "module provides a Link model and CMS interface for managing different types of links"
+    },
+    {
+      "name": "jonom/silverstripe-betternavigator",
+      "description": ""
+    },
+    {
+      "name": "silverstripe/redirectedurls",
+      "description": "This module provides a system for users to configure arbitrary redirections in the CMS"
+    },
+    { "name": "heyday/silverstripe-menumanager" },
+    { "name": "silverstripe-terraformers/keys-for-cache" },
+    { "name": "silverstripe/lumberjack" },
+    { "name": "silverstripe/sharedraftcontent" },
+    { "name": "silverstripe/staticpublishqueue" },
+    { "name": "silverstripe/taxonomy" },
+    { "name": "unclecheese/display-logic" },
+    { "name": "silverstripe/crontask" },
+    { "name": "nzta/silverstripe-sitebanner" }
+  ]
+}
