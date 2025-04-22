@@ -1,0 +1,53 @@
+{
+  "versions": [
+    {
+      "name": "5"
+    },
+    {
+      "name": "6"
+    }
+  ],
+  "recommended": {
+    "modules": [
+      "silverstripe/linkfield",
+      "dnadesign/silverstripe-elemental",
+      "heyday/silverstripe-menumanager",
+      "jonom/silverstripe-betternavigator",
+      "silverstripe-terraformers/keys-for-cache",
+      "silverstripe/staticpublishqueue",
+      "silverstripe/taxonomy",
+      "silverstripe/crontask",
+      "silverstripeltd/bespoke-standards"
+    ]
+  },
+  "modules": [
+    {
+      "name": "silverstripe/linkfield",
+      "description": "module provides a Link model and CMS interface for managing different types of links"
+    },
+    {
+      "name": "dnadesign/silverstripe-elemental"
+    },
+    {
+      "name": "silverstripe/recipe-cms",
+      "description": "Base page and asset content-editing recipe for a Silverstripe"
+    },
+    {
+      "name": "jonom/silverstripe-betternavigator",
+      "description": ""
+    },
+    {
+      "name": "silverstripe/redirectedurls",
+      "description": "This module provides a system for users to configure arbitrary redirections in the CMS"
+    },
+    { "name": "heyday/silverstripe-menumanager" },
+    { "name": "silverstripe-terraformers/keys-for-cache" },
+    { "name": "silverstripe/lumberjack" },
+    { "name": "silverstripe/sharedraftcontent" },
+    { "name": "silverstripe/staticpublishqueue" },
+    { "name": "silverstripe/taxonomy" },
+    { "name": "unclecheese/display-logic" },
+    { "name": "silverstripe/crontask" },
+    { "name": "nzta/silverstripe-sitebanner" }
+  ]
+}
