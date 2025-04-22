@@ -7,14 +7,30 @@
       "name": "6"
     }
   ],
+  "recommended": {
+    "modules": [
+      "silverstripe/linkfield",
+      "dnadesign/silverstripe-elemental",
+      "heyday/silverstripe-menumanager",
+      "jonom/silverstripe-betternavigator",
+      "silverstripe-terraformers/keys-for-cache",
+      "silverstripe/staticpublishqueue",
+      "silverstripe/taxonomy",
+      "silverstripe/crontask",
+      "silverstripeltd/bespoke-standards"
+    ]
+  },
   "modules": [
-    {
-      "name": "silverstripe/recipe-cms",
-      "description": "Base page and asset content-editing recipe for a Silverstripe"
-    },
     {
       "name": "silverstripe/linkfield",
       "description": "module provides a Link model and CMS interface for managing different types of links"
+    },
+    {
+      "name": "dnadesign/silverstripe-elemental"
+    },
+    {
+      "name": "silverstripe/recipe-cms",
+      "description": "Base page and asset content-editing recipe for a Silverstripe"
     },
     {
       "name": "jonom/silverstripe-betternavigator",
