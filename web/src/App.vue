@@ -1,223 +1,264 @@
-<script setup lang="ts"></script>
-
 <template>
   <div class="logo-background"></div>
+  <div class="button button--dark backpack-terminal" v-if="state.installAlong && !isStep('welcome')">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-terminal-icon lucide-terminal"><path d="M12 19h8"/><path d="m4 17 6-6-6-6"/></svg>
+  </div>
   <div class="backpack">
-    <main class="backpack-container" aria-live="polite" role="region">
-      <nav class="backpack-navigation" aria-label="Backpack navigation" v-show="showSteps">
-        <h2>Silverstripe's Backpack</h2>
+    <SideView />
 
-        <div class="backpack-steps">
-          <h3>Steps</h3>
-          <ol>
-            <li class="backpack-navigation__item">
-              <button class="backpack-navigation__button" @click="setStep('basics')">
-                The basics
-              </button>
-            </li>
-            <li class="backpack-navigation__item">
-              <button class="backpack-navigation__button" @click="setStep('modules')">
-                Pick modules
-              </button>
-            </li>
-            <li class="backpack-navigation__item">
-              <button class="backpack-navigation__button" @click="setStep('extras')">
-                Pick extras
-              </button>
-            </li>
-            <li class="backpack-navigation__item">
-              <button class="backpack-navigation__button" @click="setStep('finished')">
-                Finished
-              </button>
-            </li>
-          </ol>
-        </div>
-      </nav>
+    <div class="backpack-section backpack-section--welcome" v-if="isStep('welcome')">
+      <h1>Welcome to backpack</h1>
+      <p>Jump start a Silverstripe project within a few clicks</p>
 
-      <section class="backpack-section" v-if="isStep('welcome')">
+      <footer class="backpack-section__footer">
+        <button class="button button--dark" @click="setStep('basics')">
+          Get started
+          <span class="icon icon-arrow"></span>
+        </button>
+
+        <button class="button button--outline" @click="startCLIProcess()">CLI process</button>
+      </footer>
+
+      <div class="output" ref="outputRef"></div>
+    </div>
+
+    <Transition name="slide-module-content">
+      <section
+        class="backpack-section"
+        style="position: absolute; right: -100px"
+        v-if="isStep('modules')"
+      >
         <div class="backpack-section__content">
-          <h1>Welcome to the Backpack</h1>
-          <p>Jump start a Silverstripe project within a few clicks</p>
-
-          <div class="backpack-intro-steps">
-            <div class="backpack-intro-steps__item">
-              <h2>1. The basics</h2>
-              <p>Choose a name for your site and pick the modules you want to install.</p>
-            </div>
-
-            <div class="backpack-intro-steps__item">
-              <h2>2. Pick modules</h2>
-              <p>Choose the modules you want to install.</p>
-            </div>
-
-            <div class="backpack-intro-steps__item">
-              <h2>3. Add extras</h2>
-              <p>Choose any extra features you might want to install</p>
-            </div>
-
-            <div class="backpack-intro-steps__item">
-              <h2>4. Finished</h2>
-            </div>
+          <div class="modules-section composer-ui">
+            <code>
+              <pre>
+  
+                  <span class="composer-ui--grey">// composer.json </span>
+                  "require": {
+                    <span v-for="module in state.modules" class="composer-ui--green">"{{ module }}": <span class="composer-ui--blue">"*"</span>,
+                    </span>}
+  
+                </pre>
+            </code>
           </div>
         </div>
-
-        <footer class="backpack-section__footer">
-          <button class="backpack-button" @click="setStep('basics')">Move onto the basics</button>
-        </footer>
       </section>
+    </Transition>
 
-      <section class="backpack-section" v-if="isStep('basics')">
-        <div class="backpack-section__header">
-          <h2>The basics</h2>
-          <p>Tell us about the site</p>
-        </div>
-
+    <Transition name="slide-patterns" mode="out-in">
+      <section class="backpack-section" v-if="isStep('setups')">
         <div class="backpack-section__content">
-          <div>
-            <label for="siteName">Site Name</label>
-            <input id="siteName" type="text" required />
+          <div class="setup-preview setup-preview--image">
+            <img src="./assets/images/patterns/image-text.svg" />
           </div>
-          <div>
-            <label for="version">Version</label>
-            <select id="version" required>
-              <option value="5">5</option>
-              <option value="6">6</option>
-            </select>
+          <div class="setup-preview setup-preview--accordion">
+            <img src="./assets/images/patterns/accordion.svg" />
+          </div>
+          <div class="setup-preview setup-preview--cta">
+            <img src="./assets/images/patterns/cta.svg" />
           </div>
         </div>
-
-        <footer class="backpack-section__footer">
-          <button class="backpack-button" @click="setStep('modules')">Pick modules</button>
-        </footer>
       </section>
+    </Transition>
 
-      <section class="backpack-section" v-if="isStep('modules')">
-        <div class="backpack-section__header">
-          <h2>Pick modules</h2>
-          <p>Pick a selection of modules</p>
+    <section class="backpack-section backpack-section--patterns" v-if="isStep('patterns')">
+      <div class="backpack-section__header">
+        <h2 class="backpack-section__title">All patterns</h2>
+        <div class="button button-group">
+          <button
+            class="button"
+            :class="{
+              'button--plain': viewToggleState !== 'row',
+              'button--selected': viewToggleState === 'row',
+            }"
+            @click="viewToggleState = 'row'"
+          >
+            <span class="icon icon-row"></span>
+          </button>
+
+          <button
+            class="button button--plain"
+            :class="{
+              'button--plain': viewToggleState !== 'column',
+              'button--selected': viewToggleState === 'column',
+            }"
+            @click="viewToggleState = 'column'"
+          >
+            <span class="icon icon-column"></span>
+          </button>
         </div>
-        <div class="backpack-section__content">
-          <div class="module-selection">
+      </div>
+
+      <div class="backpack-section__content">
+        <div class="patterns-list">
+          <div class="pattern-group" v-for="pattern in patterns">
+            <h2 class="pattern-group__title">{{ pattern.title }}</h2>
             <div
-              v-for="module in config.modules"
-              :key="module.name"
-              class="module-item"
-              :class="{ 'module-item--selected': selectedModules.includes(module.name) }"
-              @click="toggleModule(module.name)"
+              class="pattern-templates"
+              :class="{ 'pattern-templates--column': viewToggleState === 'column' }"
             >
-              <div class="module-item__checkmark" v-if="selectedModules.includes(module.name)">
-                <img src="../src/assets/images/icons/checkmark.svg" alt="">
+              <div class="pattern" v-for="pattermTemplate in patternTemplates[pattern.type]">
+                <div class="pattern-template__header">
+                  <div class="pattern-template__title">
+                    {{ pattermTemplate.name }}
+                  </div>
+                  <div class="pattern-template__button">
+                    <button
+                      class="button button--outline"
+                      @click="addPattern(pattern, pattermTemplate)"
+                    >
+                      <span v-if="state.patterns.layouts.includes(pattermTemplate.location)"
+                        >Added</span
+                      >
+                      <span v-else>Add</span>
+                    </button>
+                  </div>
+                </div>
+                <iframe
+                  class="patterns__preview-frame"
+                  :src="pattermTemplate.templatePath"
+                  frameborder="0"
+                ></iframe>
               </div>
-              <h3>{{ module.name }}</h3>
-              <p>{{ module.description }}</p>
             </div>
           </div>
         </div>
+      </div>
+    </section>
 
-        <footer class="backpack-section__footer">
-          <button class="backpack-button" @click="setStep('basics')">basics</button>
-          <button class="backpack-button" @click="setStep('extras')">Pick modules</button>
-        </footer>
-      </section>
+    <section class="backpack-section backpack-section--finished" v-if="isStep('finished')">
+      <div class="backpack-header">
+        <h1>Finished</h1>
 
-      <section class="backpack-section" v-if="isStep('extras')">
-        <div class="backpack-section__header">
-          <h2>Pick extras</h2>
-          <p>Some extras</p>
-        </div>
-        
-        <div class="backpack-section__content">
-        </div>
-
-        <footer class="backpack-section__footer">
-          <button class="backpack-button" @click="setStep('modules')">Modules</button>
-          <button class="backpack-button" @click="setStep('finished')">Finish</button>
-        </footer>
-      </section>
-
-      <section class="backpack-section" v-if="isStep('finished')">
-        <h2>All finished</h2>
-      </section>
-    </main>
+        <button @click="createProject()" class="button button--dark">Create project</button>
+      </div>
+    </section>
   </div>
 </template>
 <style scoped>
-.module-selection {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  list-style: none;
-  padding: 0;
+.wireframe-border {
+  fill: none;
+  stroke: #4a5568;
+  stroke-width: 2;
 }
-
-.module-item {
-  display: flex;
-  flex-direction: column;
-  padding: 12px;
-  margin-bottom: 8px;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.2s ease;
+.squiggle {
+  fill: none;
+  stroke: #4a5568;
+  stroke-width: 2;
+  stroke-linecap: round;
 }
-
-.module-item label {
-  pointer-events: none;
+.light-bg {
+  fill: #edf2f7;
 }
-
-.module-item--selected {
-  background-color: #e6f2ff;
-  border-color: #005cb9;
-}
-
-.module-item__checkmark {
-  position: absolute;
-  top: 0.4rem;
-  right: 0.4rem;
-  width: 1.5rem;
-  height: 1.5rem;
-}
-
-
-.module-checkbox {
-  margin-right: 10px;
-  visibility: hidden;
-  display: none;
+.label {
+  font-family: sans-serif;
+  font-size: 14px;
+  fill: #4a5568;
 }
 </style>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import config from '../../config/modules.json'
+import { ref, onMounted } from 'vue'
+import { storeToRefs } from 'pinia'
+import BasicsView from './views/BasicsView.vue'
 
+import { useStateStore } from './stores/state'
+import ModulesView from './views/ModulesView.vue'
+import SetupView from './views/SetupView.vue'
+import SideView from './views/SideView.vue'
 
-console.log(config)
-const showSteps = ref<Boolean>(false)
-const selectedModules = ref<string[]>([])
+const stateStore = useStateStore();
+const { state, setupWizard, showSteps } = storeToRefs(stateStore);
+const { isStep, setStep } = stateStore;
+const outputRef = ref('')
+const viewToggleState = ref('row')
 
-const currentStep = ref('welcome')
+let socket
 
-const isStep = (step: string) => {
-  return currentStep.value === step
+// patterns example
+const patterns = [
+  {
+    title: 'Layouts',
+    type: 'layouts',
+  },
+  {
+    title: 'Sections',
+    type: 'sections',
+  },
+  {
+    title: 'Blocks',
+    type: 'blocks',
+  },
+]
+
+const patternTemplates = {
+  layouts: [
+    {
+      name: 'Full width',
+      templatePath: '/packages/backpack/templates/FullWidth.html',
+      location: '/PageTemplates/FullWidthPage/',
+    },
+    {
+      name: 'Restricted width',
+      templatePath: '/packages/backpack/templates/RestrictedWidth.html',
+      location: '/PageTemplates/RestrictedWidthPage/',
+    },
+  ],
+  sections: {},
+  blocks: {},
 }
 
-const setStep = (step: string) => {
-  currentStep.value = step
 
-  if (step === 'basics') {
-    showSteps.value = true
-  }
-
-  if (step === 'welcome') {
-    showSteps.value = false
-  }
+const startCLIProcess = async () => {
+  socket.send('CLI')
+  outputRef.value.textContent = ''
 }
 
-const toggleModule = (moduleName: string) => {
-  if (selectedModules.value.includes(moduleName)) {
-    selectedModules.value = selectedModules.value.filter((name) => name !== moduleName)
-  } else {
-    selectedModules.value.push(moduleName)
-  }
+const addPattern = (pattern, patternTemplate) => {
+  const { type } = pattern
+  state.value.patterns.layouts.push(patternTemplate.location)
+  console.log(state.value.patterns)
 }
+
+const createProject = () => {
+  fetch('/createProject', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(state.value),
+  })
+    .then((res) => res.json())
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err))
+}
+
+// onMounted(() => {
+//   outputRef.value.textContent = '';
+//   socket = new WebSocket(`ws://${location.host}/ws`);
+
+//   socket.onopen = function(e) {
+//     console.log("[open] Connection established");
+//     console.log("Sending to server");
+//     socket.send("My name is John");
+//   };
+
+//   socket.onmessage = function(event) {
+//     console.log(`[message] Data received from server: ${event.data}`);
+//   };
+
+//   socket.onclose = function(event) {
+//     if (event.wasClean) {
+//       console.log(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+//     } else {
+//       // e.g. server process killed or network down
+//       // event.code is usually 1006 in this case
+//       console.log('[close] Connection died');
+//     }
+//   };
+
+//   socket.onerror = function(error) {
+//     alert(`[error]`);
+//   };
+// })
 </script>

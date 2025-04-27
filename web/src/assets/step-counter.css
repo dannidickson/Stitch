@@ -1,0 +1,21 @@
+.backpack-steps {
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    margin: 0;
+    gap: 1rem;
+    list-style: none;
+}
+
+.backpack-step {
+    background-color: #9c9ea3;
+    border-radius: 50%;
+    width: 1rem;
+    height: 1rem;
+    transition: all 200ms ease-in-out;
+}
+
+.backpack-step--selected {
+    width: 5.5rem;
+    border-radius: 1rem;
+}

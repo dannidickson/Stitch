@@ -1,0 +1,36 @@
+.card-setup-group {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+}
+
+.card {
+    border: 1px solid #c4c7ce;
+    border-radius: 0.4rem;
+    background-color: var(--color-white);
+    color: var(--color-midnight-blue);
+    padding: 1.6rem;
+    cursor: pointer;
+}
+
+.card__title {
+    margin-bottom: .4rem;
+}
+
+.card--selected {
+    background: var(--color-selected-background);
+    border: 1px solid var(--color-selected-border);
+}
+
+.card--setup-note {
+    background-color: var(--color-midnight-blue);
+    color: var(--color-white);
+    margin-bottom: 2rem;
+}
+
+.card--note {
+    transform: rotate(352deg);
+    margin-right: 0.6rem;
+}

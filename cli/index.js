@@ -1,15 +1,18 @@
 #!/usr/bin/env node
 
-import { intro, outro, text, select, multiselect, confirm, spinner, tasks, stream } from '@clack/prompts'
+// import { intro, outro, text, select, multiselect, confirm, spinner, tasks, stream } from '@clack/prompts';
+import * as prompts from '@clack/prompts';
 import fs from 'fs';
-import { spawn } from 'child_process';
 import config from '../config/modules.json' with { "type": "json" }
+import patternsConfig from '../.patterns/backpack/.config/templates.json' with { "type": "json" }
 import projectPackageJSON from '../package.json' with { type: 'json' }
 import color from 'picocolors'
 import path, { dirname } from 'path';
 import os from 'os';
 import { fileURLToPath } from 'url';
 import { parseArgs } from 'util';
+
+import createProjectFromState from '../shared/createProject.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -20,6 +23,13 @@ const state = {
   useDDEV: true,
   promptForModules: true,
   modules: [],
+  usePatterns: false,
+  patternsPack: '',
+  patterns: {
+    layouts: [],
+    blocks: [],
+    includes: [],
+  },
   extras: [],
   allowPlugins: false,
 
@@ -70,59 +80,9 @@ Flags:
 
   --prettier
     Include prettier in the project
-`
+`;
 
-function addOutput(outputStream, resolve) {
-  outputStream.stdout.on('data', data => {
-    stream.info(data.toString());
-  });
-  outputStream.stderr.on('data', (data) => {
-    stream.info(data.toString());
-  });
-  
-  outputStream.on('close', (code) => {
-    if (code !== 0) {
-      outro('Setup cancelled. Goodbye!')
-      process.exit(1)
-    }
-    resolve();
-  });
-
-  return outputStream;
-}
-
-const installProject = async () => {
-  return new Promise((resolve, reject) => {
-    console.log(color.blue(`Running: composer create-project silverstripe/installer ${state.projectName}`))
-    const installProject = spawn('composer', ['create-project', 'silverstripe/installer', state.projectName], { cwd: state.projectDir });
-    addOutput(installProject, resolve);
-  })
-}
-
-const setupDDEV = async () => {
-  return new Promise((resolve, reject) => {
-    console.log(color.blue(`Running: ddev config --project-type=silverstripe --docroot=public`))
-    const ddevCommand = spawn('ddev', ['config', '--project-type=silverstripe', '--docroot=public'], { cwd: state.projectDir });
-    addOutput(ddevCommand, resolve);
-  })
-}
-
-const allowPlugins = async () => {
-  return new Promise((resolve, reject) => {
-    console.log(color.blue(`Running: composer config --no-plugins allow-plugins ${state.allowPlugins}`))
-    const allowPlugins = spawn('composer', ['config', '--no-plugins', 'allow-plugins', state.allowPlugins], { cwd: state.projectDir });
-    addOutput(allowPlugins, resolve);
-  })
-};
-
-// installs the modules 
-const installModules = async () => {
-  return new Promise((resolve, reject) => {
-    console.log(color.blue(`Running: composer require ${state.modules.join(' ')}`))
-    const installModules = spawn('composer', ['require', ...state.modules], { cwd: state.projectDir });
-    addOutput(installModules, resolve);
-  })
-}
+const cancel = () => prompts.cancel('Operation cancelled')
 
 async function main() {
   const cwd = process.cwd()
@@ -148,11 +108,11 @@ async function main() {
     process.exit(0)
   }
 
-  intro(color.blue('Welcome to the Silverstripe Backpack'))
+  prompts.intro(color.blue('Welcome to the Silverstripe Backpack'))
   console.log('Jump start a Silverstripe project within a few clicks\n')
 
   console.log(color.blue('\n1. The basics'))
-  state.projectName = await text({
+  state.projectName = await prompts.text({
     message: 'What is the name of your project?',
     placeholder: 'my-website',
     validate: (value) => {
@@ -164,17 +124,17 @@ async function main() {
   })
 
   if (state.projectName === null) {
-    outro('Setup cancelled!')
+    prompts.outro('Setup cancelled!')
     process.exit(0)
   }
 
-  state.projectDir = await text({
+  state.projectDir = await prompts.text({
     message: 'Which directory do you want this project reside?',
     placeholder: '/',
   })
 
   if (state.projectDir === null || fs.existsSync(state.projectDir)) {
-    outro(color.red('Directory already exists. Please choose a different name.'))
+    prompts.outro(color.red('Directory already exists. Please choose a different name.'))
     process.exit(0)
   }
 
@@ -185,7 +145,7 @@ async function main() {
   }
   else {
     // if the user has not provided a path, use the root directory of this project
-    state.projectDir = path.resolve(__dirname, '..', 'EXPORTED_PROJECT');
+    state.projectDir = path.resolve(__dirname, '..', '.exported_projects');
   }
 
   console.log(color.blue('\nPick a version'))
@@ -194,8 +154,10 @@ async function main() {
     label: mod.name,
     hint: mod.description,
   }));
+
+  if (prompts.isCancel(versionOptions)) return cancel();
   
-  state.version = await select({
+  state.version = await prompts.select({
     message: 'Which version of Silverstripe do you want to target',
     options: [
       ...versionOptions,
@@ -203,10 +165,18 @@ async function main() {
     required: true,
   });
 
-  if (argv.recommended) {
+  state.usePresets = await prompts.select({
+    message: 'Do you want to use a preset?',
+    options: [
+      { value: false, label: 'No', hint: 'Does not use a preset' },
+      { value: 'recommended', label: 'Use recommended', hint: '' },
+    ],
+  })
+
+  if (argv.recommended || state.usePresets === 'recommended') {
     console.log(color.yellow('Will install the recommended modules and configurations.'))
 
-    state.promptForModules = await select({
+    state.promptForModules = await prompts.select({
       message: 'Do you want to run through the prompts, or jump into installing the project?',
       options: [
         { value: true, label: 'Continue through prompts', hint: 'Asks you to pick modules and extra prompts' },
@@ -217,7 +187,7 @@ async function main() {
 
     // if the user selects to 'Install project' set the recommended configuration
     if (!state.promptForModules) {
-      const recommendedModules = config.recommended.modules
+      const recommendedModules = config.presets.recommended.modules
       state.modules = recommendedModules;
       state.allowPlugins = true;
       state.useDDEV = true;
@@ -225,8 +195,8 @@ async function main() {
   }
 
   if (state.promptForModules) {
-    state.useDDEV = await select({
-      message: 'nDo you want to use DDEV?',
+    state.useDDEV = await prompts.select({
+      message: 'Do you want to use DDEV?',
       options: [
         { value: true, label: 'Yes', hint: 'Use DDEV' },
         { value: false, label: 'No', hint: 'Self manage the environment yourself (native, vagrant etc)' },
@@ -240,7 +210,8 @@ async function main() {
       label: mod.name,
       hint: mod.description,
     }))
-    state.modules = await multiselect({
+
+    state.modules = await prompts.multiselect({
       message: 'Select the modules you want to install',
       options: [
         ...moduleOptions,
@@ -249,14 +220,35 @@ async function main() {
     })
   
     if (state.modules === null) {
-      outro('Setup cancelled. Goodbye!')
+      prompts.outro('Setup cancelled. Goodbye!')
       process.exit(0)
     }
   
-    state.allowPlugins = await confirm({
+    state.allowPlugins = await prompts.confirm({
       message: `Allow composer plugins?`,
       required: true,
     });
+
+    state.usePatterns = await prompts.confirm({
+      message: `Do you want to use any patterns?`,
+      required: true,
+    });
+
+    if (state.usePatterns) {
+      const layoutOptions = patternsConfig.layouts.map((mod) => ({
+        value: mod.location,
+        label: mod.name,
+        hint: mod.description,
+      }));
+
+      state.patterns.layouts = await prompts.multiselect({
+        message: 'Select page layouts to include.',
+        options: [
+          ...layoutOptions,
+        ],
+        required: true,
+      })
+    }
   }
 
   console.log(color.blue('\n' + 'Project summary:'))
@@ -265,34 +257,22 @@ async function main() {
   console.log(`Using DDEV: ${color.bold(state.useDDEV ? 'Yes' : 'No')}`)
   console.log(`Version: ${color.bold(state.version)}`)
   console.log(`Modules: ${color.bold(state.modules.join(', '))}`)
+  console.log(`Patterns - Layouts: ${color.bold(state.patterns.layouts.join('. '))}`)
   
-  const shouldProceed = await confirm({
+  const shouldProceed = await prompts.confirm({
     message: `Ready to create your Silverstripe project "${state.projectName}"?`,
   });
   
 
   if (!shouldProceed) {
-    outro('Setup cancelled. Goodbye!')
+    prompts.outro('Setup cancelled. Goodbye!')
     process.exit(0)
   }
 
-  console.log(color.blue(`Creating directory at ${state.projectDir}`))
-
-  if (!fs.existsSync(state.projectDir)){
-    fs.mkdirSync(state.projectDir);
-  }
- 
-  await installProject();
-  state.projectDir = path.join(state.projectDir, state.projectName);
-  if (state.useDDEV) {
-    await setupDDEV();
-  }
-
-  await allowPlugins();
-  await installModules();
+  createProjectFromState(state);
 
   // Final instructions
-  outro(`${color.green('Success!')} Your Silverstripe project is ready.`)
+  prompts.outro(`${color.green('Success!')} Your Silverstripe project is ready.`)
   console.log(`\nNext steps: ...`)
 }
 
