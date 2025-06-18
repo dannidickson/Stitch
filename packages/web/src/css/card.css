@@ -7,12 +7,19 @@
 }
 
 .card {
-    border: 1px solid #c4c7ce;
+    border: 2px solid #c4c7ce;
     border-radius: 0.4rem;
     background-color: var(--color-white);
     color: var(--color-midnight-blue);
     padding: 1.6rem;
     cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.card:hover {
+    border: 2px solid var(--color-selected-border);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .card__title {
@@ -21,7 +28,7 @@
 
 .card--selected {
     background: var(--color-selected-background);
-    border: 1px solid var(--color-selected-border);
+    border: 2px solid var(--color-selected-border);
 }
 
 .card--setup-note {

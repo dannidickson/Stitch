@@ -1,7 +1,7 @@
 // create the project
 import fs from 'fs';
 import { spawn} from 'child_process';
-import defaultOptions from '../config/defaults.json' with { type: 'json' }
+import defaultOptions from '../../config/defaults.json' with { type: 'json' }
 import color from 'picocolors'
 import path from 'path';
 

@@ -3,10 +3,8 @@
     height: 145px;
     transform: rotate(353deg);
     position: relative;
-    top: -20rem;
+    top: 4rem;
     left: 300px;
-    /* -webkit-mask-image: url('./images/patterns/image-text.svg');
-    mask-image: url('./images/patterns/image-text.svg'); */
 }
 
 .setup-preview--accordion {
@@ -14,20 +12,16 @@
     height: 223px;
     transform: rotate(5deg);
     position: relative;
-    top: 0px;
+    top: 17rem;
     left: -100px;
-
-    /* -webkit-mask-image: url('./images/patterns/accordion.svg');
-    mask-image: url('./images/patterns/accordion.svg'); */
 }
-
 
 .setup-preview--cta {
     width: 420px;
     height: 150px;
     transform: rotate(357deg);
     position: relative;
-    top: 30px;
+    top: 30rem;
     left: 500px;
     
     /* -webkit-mask-image: url('./images/patterns/cta.svg');

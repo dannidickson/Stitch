@@ -49,6 +49,8 @@
 .backpack-section--welcome {
   text-align: center;
   align-items: center;
+  place-content: flex-end;
+  margin-bottom: 25rem;
 }
 
 .backpack-section__header {
@@ -69,7 +71,7 @@
   margin-top: 3rem;
 }
 
-.modules-section {
+.composer-output {
   overflow-y: scroll;
   display: flex;
   flex-grow: 1;
@@ -77,7 +79,7 @@
   flex: 1;
 }
 
-.modules-section pre {
+.composer-ui pre {
   background-color: #0d1117;
   border-radius: 10px;
   color: #7ae787;
@@ -117,7 +119,13 @@
   background: var(--color-white);
   border-radius: 4px;
   cursor: pointer;
-  transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+.module:hover {
+    border: 2px solid var(--color-selected-border);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .module label {

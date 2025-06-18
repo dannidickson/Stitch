@@ -7,7 +7,7 @@
     <SideView />
 
     <div class="backpack-section backpack-section--welcome" v-if="isStep('welcome')">
-      <h1>Welcome to backpack</h1>
+      <h1 class="h1">Welcome to Stitch</h1>
       <p>Jump start a Silverstripe project within a few clicks</p>
 
       <footer class="backpack-section__footer">
@@ -25,11 +25,11 @@
     <Transition name="slide-module-content">
       <section
         class="backpack-section"
-        style="position: absolute; right: -100px"
+        style="flex-wrap: nowrap; height: min-content; align-self: center; transform: translateX(400px);"
         v-if="isStep('modules')"
       >
         <div class="backpack-section__content">
-          <div class="modules-section composer-ui">
+          <div class="composer-ui">
             <code>
               <pre>
   
@@ -63,7 +63,7 @@
 
     <section class="backpack-section backpack-section--patterns" v-if="isStep('patterns')">
       <div class="backpack-section__header">
-        <h2 class="backpack-section__title">All patterns</h2>
+        <h2 class="h1 backpack-section__title">All patterns</h2>
         <div class="button button-group">
           <button
             class="button"
@@ -204,8 +204,30 @@ const patternTemplates = {
       location: '/PageTemplates/RestrictedWidthPage/',
     },
   ],
-  sections: {},
-  blocks: {},
+  sections: [
+    {
+      name: 'Full width',
+      templatePath: '/packages/backpack/templates/FullWidth.html',
+      location: '/PageTemplates/FullWidthPage/',
+    },
+    {
+      name: 'Restricted width',
+      templatePath: '/packages/backpack/templates/RestrictedWidth.html',
+      location: '/PageTemplates/RestrictedWidthPage/',
+    },
+  ],
+  blocks: [
+    {
+      name: 'Full width',
+      templatePath: '/packages/backpack/templates/FullWidth.html',
+      location: '/PageTemplates/FullWidthPage/',
+    },
+    {
+      name: 'Restricted width',
+      templatePath: '/packages/backpack/templates/RestrictedWidth.html',
+      location: '/PageTemplates/RestrictedWidthPage/',
+    },
+  ],
 }
 
 

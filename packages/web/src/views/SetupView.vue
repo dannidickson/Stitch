@@ -1,7 +1,7 @@
 <template>
     <div class="backpack-sidebar__content">
       <div class="backpack-section__header">
-        <h2 class="backpack-section__title">Use patterns?</h2>
+        <h2 class="h2 backpack-section__title">Continue Setup?</h2>
       </div>
       <div class="backpack-section__content">
         <div class="card-setup-group">
@@ -12,7 +12,7 @@
           >
             <h3 class="card__title">
               <span class="icon icon-copy"></span>
-              Patterns
+              Select
             </h3>
             <p>Select some patterns to add to your site?</p>
             <p>You will need to peice them together afterwards</p>
@@ -23,11 +23,23 @@
             :class="{ 'card--selected': setupWizard === 'stitch' }"
             @click="selectSetupWizard('stitch')"
           >
-            <h3 class="card__title">
+              <h3 class="card__title">
               <span class="icon icon-edit"></span>
-              Stitch
+              Select and Stitch
             </h3>
-            <p>Stitch together the patterns in a builder UI.</p>
+            <p>Select some patterns to add to your site?</p>
+            <p>Customize where these patterns / blocks go and on which page types</p>
+          </div>
+
+          <div
+            class="card"
+            :class="{ 'card--selected': setupWizard === 'skip' }"
+            @click="selectSetupWizard('skip')"
+          >
+            <h3 class="card__title">
+              Skip step
+            </h3>
+            <p>Alternatively, you skip this step entirely and finish</p>
           </div>
         </div>
       </div>
@@ -39,7 +51,7 @@
         </h3>
         <p>
           Use patterns if you know you're going to be doing a lot of customizations. If you want to
-          use both, select Stitch, and add patterns.
+          use both, select Apply and Configure, and add patterns.
         </p>
       </div>
     </div>

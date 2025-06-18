@@ -12,7 +12,7 @@ const __dirname = dirname(__filename)
 
 const app = express()
 app.use(express.json());
-app.use(express.static('web/dist'))
+app.use(express.static('../web/dist'))
 
 const server = http.createServer(app)
 const socketServer = new WebSocketServer({ server })

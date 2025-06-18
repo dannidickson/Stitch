@@ -1,4 +1,5 @@
 @import './base.css';
+@import './typography.css';
 @import './search.css';
 @import './card.css';
 @import './form.css';
@@ -19,30 +20,34 @@
 .backpack {
   display: flex;
   flex-direction: row;
-  place-items: center;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .backpack-sidebar {
-  width: 61rem;
-  height: 100vh;
+  position: sticky;
+  top: 1.6rem;
+  left: 1.6rem;
+  width: 50rem;
+  height: calc(100vh - 3.2rem);
   background-color: white;
-  font-family: "Sora";
+  font-family: var(--font-sans-serif);
   font-weight: 400;
   padding: 4rem 2rem;
-  box-shadow: 2px -2px 8px 0px #00000033;
   display: flex;
   flex-direction: column;
   transition: width 300ms ease-in-out;
   z-index: 9;
+  border-radius: .6rem;
+  border: 0.1rem solid var(--color-midnight-blue);
 }
+
 .backpack-sidebar__header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  
+  align-items: center;  
 }
+
 .backpack-sidebar--ui {
   width: 42rem;
 }
@@ -58,6 +63,7 @@
 
 .backpack-sidebar__footer {
   display: flex;
+  width: 100%;
   justify-content: space-between;
   align-items: center;
 }

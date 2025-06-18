@@ -1,14 +1,22 @@
 <template>
   <div class="backpack-sidebar__content">
     <div class="backpack-section__header">
-      <h2 class="backpack-section__title">The basics</h2>
+      <h2 class="h1 backpack-section__title">The basics</h2>
       <p class="backpack-section__description">Tell us about the site</p>
     </div>
 
     <div class="backpack-section__content">
-      <div class="form-control form-control--full">
+      <div class="form-control form-control--input">
         <label class="form-label" for="siteName">Site Name</label>
         <input class="form-input" id="siteName" type="text" required v-model="state.projectName" />
+      </div>
+
+      <div class="form-control form-control--input">
+        <label class="form-label" for="projectDir">Project directory</label>
+        <input class="form-input" id="projectDir" placeholder="" type="text" required v-model="state.projectDir" />
+        <p class="form-description form-description--full">
+          Leaving this blank will create the project with backpack itself
+        </p>
       </div>
 
       <div class="form-control">

@@ -3,9 +3,9 @@
 // import { intro, outro, text, select, multiselect, confirm, spinner, tasks, stream } from '@clack/prompts';
 import * as prompts from '@clack/prompts';
 import fs from 'fs';
-import config from '../config/modules.json' with { "type": "json" }
-import patternsConfig from '../.patterns/backpack/.config/templates.json' with { "type": "json" }
-import projectPackageJSON from '../package.json' with { type: 'json' }
+import config from '../../config/modules.json' with { "type": "json" }
+import patternsConfig from '../../.patterns/backpack/.config/templates.json' with { "type": "json" }
+import projectPackageJSON from '../../package.json' with { type: 'json' }
 import color from 'picocolors'
 import path, { dirname } from 'path';
 import os from 'os';
