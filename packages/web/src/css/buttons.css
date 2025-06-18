@@ -1,10 +1,12 @@
 .button {
-    display: block;
     padding: 1.2rem;
     font-size: 1.8rem;
     border: 0;
     border-radius: .6rem;
     transition: background 300ms ease-in-out;
+    font-family: var(--font-sans-serif);
+    font-weight: bold;
+    width: 14rem;
 }
 
 .button:hover .button__text {
@@ -29,7 +31,7 @@
 }
 
 .button--dark:hover {
-    background: #11547e;
+    background-color: #11547E;
 }
 
 .button--round {
@@ -44,11 +46,10 @@
 .button--outline {
     background: var(--color-white);
     border: 1px solid var(--color-midnight-blue);
-}
 
-.button--outline:hover {
-    background: var(--color-grey);
-    border: 1px solid var(--color-midnight-blue);
+    &:hover {
+        background: #EBF6FC;
+    }
 }
 
 .button--navigation {
@@ -68,6 +69,16 @@
 
 .button--selected:hover {
     background: #11547e;
+}
+
+.button--landing {
+    margin-top: 20px;
+    background: white;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+
+    &:hover {
+        background: #EBF6FC;
+    }
 }
 
 .button-group {

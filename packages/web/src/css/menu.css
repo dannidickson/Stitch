@@ -1,0 +1,58 @@
+.step {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  margin: 1.6rem;
+}
+
+.step-menu {
+  margin-right: 3rem;
+  width: 50rem;
+  height: calc(100vh - 3.2rem);
+  background-color: white;
+  font-family: var(--font-sans-serif);
+  font-weight: 400;
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  transition: width 300ms ease-in-out;
+  z-index: 9;
+  border-radius: .6rem;
+  border: 0.1rem solid var(--color-midnight-blue);
+  display: flex;
+  justify-content: space-between;
+}
+
+.step-menu__title {
+  font-family: var(--font-serif);
+  font-weight: bold;
+}
+
+.step-menu__content {
+  flex: 1;
+}
+
+.step-menu__description {
+  font-family: var(--font-sans-serif);
+  font-weight: 300;
+  font-size: 1.8rem;
+}
+
+.step-menu__header {
+  margin-bottom: 1.6rem;
+}
+
+.step-menu__footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.step-menu__footer .button--next {
+  margin-left: auto;
+}
+
+/* When previous button appears unset the left margin */
+.step-menu__footer .button--previous ~ .button--next {
+  margin-left: unset;
+}
