@@ -1,0 +1,25 @@
+.pattern-templates {
+    display: grid;
+    gap: 3rem;
+    grid-template-columns: repeat(1, 1fr);
+}
+
+.pattern-templates--column {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.patterns__preview-frame {
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    width: 100%;
+    padding: 1.2rem;
+    height: 250px;
+}
+
+.pattern-template__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.2rem;
+}

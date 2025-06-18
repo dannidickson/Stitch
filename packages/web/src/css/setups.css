@@ -1,0 +1,29 @@
+.setup-preview--image {
+    width: 430px;
+    height: 145px;
+    transform: rotate(353deg);
+    position: relative;
+    top: 4rem;
+    left: 300px;
+}
+
+.setup-preview--accordion {
+    width: 456px;
+    height: 223px;
+    transform: rotate(5deg);
+    position: relative;
+    top: 17rem;
+    left: -100px;
+}
+
+.setup-preview--cta {
+    width: 420px;
+    height: 150px;
+    transform: rotate(357deg);
+    position: relative;
+    top: 30rem;
+    left: 500px;
+    
+    /* -webkit-mask-image: url('./images/patterns/cta.svg');
+    mask-image: url('./images/patterns/cta.svg'); */
+}

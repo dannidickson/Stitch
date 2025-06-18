@@ -1,10 +1,10 @@
 {
-  "name": "backpack",
+  "name": "stitch",
   "version": "0.0.0",
   "private": true,
   "type": "module",
   "bin": {
-    "backpack-start": "cli/index.js"
+    "stitch-start": "/packages/cli/index.js"
   },
   "scripts": {
     "dev": "vite",
@@ -19,9 +19,11 @@
   },
   "dependencies": {
     "@clack/prompts": "^0.10.0",
+    "express": "^5.1.0",
     "http-server": "^14.1.1",
     "pinia": "^3.0.1",
-    "vue": "^3.5.13"
+    "vue": "^3.5.13",
+    "ws": "^8.18.2"
   },
   "devDependencies": {
     "@playwright/test": "^1.51.1",
@@ -32,6 +34,7 @@
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.7.0",
     "jsdom": "^26.0.0",
+    "nodemon": "^3.1.10",
     "npm-run-all2": "^7.0.2",
     "prettier": "3.5.3",
     "typescript": "~5.8.0",

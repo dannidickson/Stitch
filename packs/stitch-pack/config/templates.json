@@ -1,0 +1,14 @@
+{
+    "layouts": [
+        {
+            "name": "Full width page",
+            "description": "A page for full page content",
+            "location": "/PageTemplates/FullWidthPage/"
+        },
+        {
+            "name": "Restricted width (left side menu) page",
+            "description": "A page that has space for a left side menu",
+            "location": "/PageTemplates/RestrictedWidthPage/"
+        }
+    ]
+}

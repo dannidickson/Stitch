@@ -1,0 +1,70 @@
+:root {
+    --form-font-size: 1.8rem;
+    --form-description-font-size: 1.3rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.form-control {
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    flex-grow: 1;
+    flex: 1;
+    align-items: center;
+    margin-block: 1.2rem;
+    font-size: var(--form-font-size);
+    flex-wrap: wrap;
+}
+
+.form-control--input {
+    flex-direction: column;
+    align-items: unset;
+}
+
+.form-control--input input {
+    margin-block: 0.7rem;
+}
+
+.form-label {
+    min-width: 80px;
+    max-width: 400px;
+    margin-right: 2rem;
+    flex-shrink: 0;
+    font-weight: 500;
+}
+
+.form-input,
+.form-select {
+    width: 100%;
+    font-family: var(--font-sans-serif);
+    font-weight: 300;
+    border: 1px solid var(--color-grey);
+    font-size: var(--form-font-size);
+    padding: 1rem;
+    font-size: 1.4rem;
+    border-radius: 0.4rem;
+}
+
+.form-input {
+    flex: 1;
+    flex-grow: 2;
+}
+
+.form-select {
+    width: fit-content;
+    flex-shrink: 1;
+}
+
+.form-description {
+    font-size: var(--form-description-font-size);
+    font-weight: 300;
+}
+
+.form-description--full {
+    width: 100%;
+}

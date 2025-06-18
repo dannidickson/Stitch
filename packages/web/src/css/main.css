@@ -1,0 +1,77 @@
+@import './base.css';
+@import './typography.css';
+@import './search.css';
+@import './card.css';
+@import './form.css';
+@import './step-counter.css';
+@import './navigation.css';
+@import './presets.css';
+@import './setups.css';
+@import './patterns.css';
+@import './buttons.css';
+@import './backpack.css';
+
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+  }
+}
+
+.backpack {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.backpack-sidebar {
+  position: sticky;
+  top: 1.6rem;
+  left: 1.6rem;
+  width: 50rem;
+  height: calc(100vh - 3.2rem);
+  background-color: white;
+  font-family: var(--font-sans-serif);
+  font-weight: 400;
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  transition: width 300ms ease-in-out;
+  z-index: 9;
+  border-radius: .6rem;
+  border: 0.1rem solid var(--color-midnight-blue);
+}
+
+.backpack-sidebar__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;  
+}
+
+.backpack-sidebar--ui {
+  width: 42rem;
+}
+
+.backpack-sidebar__container {
+  flex: 1;
+}
+
+.backpack-sidebar__content {
+  flex: 1;
+}
+
+
+.backpack-sidebar__footer {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sidebar__title {
+  font-size: 3.2rem;
+}
+
+.sidebar__menu-item {
+  font-size: 2.4rem;
+}
