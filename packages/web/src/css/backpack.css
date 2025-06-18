@@ -46,13 +46,6 @@
   flex: 1;
 }
 
-.backpack-section--welcome {
-  text-align: center;
-  align-items: center;
-  place-content: flex-end;
-  margin-bottom: 25rem;
-}
-
 .backpack-section__header {
   display: flex;
   justify-content: space-between;
@@ -161,11 +154,13 @@
 
 
 .slide-fade-enter-active {
-  transition: all 300ms ease-in;
+  position: absolute;
+  transition: all 200ms ease-in;
 }
 
 .slide-fade-leave-active {
-  transition: all 100ms linear;
+  position: absolute;
+  transition: all 50ms ease-out;
 }
 
 .slide-fade-enter-from {
