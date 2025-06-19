@@ -31,6 +31,9 @@
 
 .step-menu__content {
   flex: 1;
+  overflow-y: auto;
+  margin-bottom: 1.6rem;
+  scrollbar-width: thin;
 }
 
 .step-menu__description {
@@ -55,4 +58,15 @@
 /* When previous button appears unset the left margin */
 .step-menu__footer .button--previous ~ .button--next {
   margin-left: unset;
+}
+
+/* Step content */
+.step-content {
+  display: none;
+  visibility: hidden;
+  
+  @media (min-width: 920px) {
+    display: block;
+    visibility: visible;
+  }
 }

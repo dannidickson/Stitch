@@ -81,6 +81,8 @@
               </div>
             </div>
 
+            <ConfigureModule v-if="step.Key === 'config'" />
+
             <div class="form" v-if="step.Key === 'directions'">
 
               <div class="card-setup-group">
@@ -118,6 +120,7 @@ import AboutContent from './views/AboutContent.vue'
 
 import { useStateStore } from './stores/state'
 import { storeToRefs } from 'pinia'
+import ConfigureModule from './components/steps/ConfigureModule.vue'
 const stateStore = useStateStore()
 const { isStep, setStep } = stateStore
 const { state } = storeToRefs(stateStore)
