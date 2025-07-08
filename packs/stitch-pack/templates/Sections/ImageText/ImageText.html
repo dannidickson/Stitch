@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Image and Text Area</title>
+  <style>
+    body { margin: 0; font-family: sans-serif; }
+    .container {
+      display: flex;
+      align-items: center;
+      height: 100vh;
+      background: #f9f9f9;
+    }
+    .image {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #eee;
+      height: 100%;
+    }
+    .image img {
+      max-width: 90%;
+      max-height: 80vh;
+      border-radius: 8px;
+    }
+    .text {
+      flex: 1;
+      padding: 2rem;
+      font-size: 1.2rem;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="image">
+      <img src="https://via.placeholder.com/300x200.png?text=Image" alt="Sample" />
+    </div>
+    <div class="text">
+      <h2>Image and Text Area</h2>
+      <p>This section displays an image alongside some text. Use this layout to highlight features, tell a story, or present information visually and descriptively.</p>
+    </div>
+  </div>
+</body>
+</html> 

@@ -1,5 +1,5 @@
 @import './base.css';
-@import './menu.css';
+@import './step.css';
 @import './typography.css';
 @import './search.css';
 @import './card.css';
@@ -31,4 +31,51 @@
   place-content: flex-end;
   margin-bottom: 25rem;
   flex: 1;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+
+.toggle-switch input[type="checkbox"] {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  width: 45px;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--color-grey);
+  border-radius: 2.5rem;
+  transition: background 0.2s;
+}
+
+.toggle-switch input[type="checkbox"]:checked + .toggle-slider {
+  background: var(--color-midnight-blue);
+}
+
+.toggle-slider::before {
+  content: "";
+  position: absolute;
+  height: 14px;
+  width: 14px;
+  left: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--color-white);
+  border-radius: 50%;
+  transition: transform 200ms;
+}
+
+.toggle-switch input[type="checkbox"]:checked + .toggle-slider::before {
+  transform: translate(19px, -50%);
 }

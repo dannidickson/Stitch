@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tabs Section</title>
+  <style>
+    body { font-family: sans-serif; margin: 0; }
+    .tabs { display: flex; border-bottom: 2px solid #ccc; }
+    .tab {
+      padding: 1rem 2rem;
+      cursor: pointer;
+      border: none;
+      background: #f5f5f5;
+      font-size: 1rem;
+      outline: none;
+      transition: background 0.2s;
+    }
+    .tab.active { background: #fff; border-bottom: 2px solid #0078d7; }
+    .tab-content { padding: 2rem; background: #fff; }
+  </style>
+</head>
+<body>
+  <div class="tabs">
+    <button class="tab active">Tab 1</button>
+    <button class="tab">Tab 2</button>
+    <button class="tab">Tab 3</button>
+  </div>
+  <div class="tab-content">
+    <h2>Tab 1 Content</h2>
+    <p>This is a preview of the Tabs section. Each tab can show different content.</p>
+  </div>
+</body>
+</html> 

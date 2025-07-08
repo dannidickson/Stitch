@@ -4,7 +4,7 @@
       <div class="form-control">
         <input class="form-input backpack-search__input" type="text" v-model="searchInput" />
       </div>
-      <div class="form-control">
+      <div class="form-control form-control--search-filter">
         <select class="form-select" v-model="searchType">
           <option value="Recommended">Recommended</option>
           <option value="Packagist">Packagist</option>
@@ -32,11 +32,15 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { useStateStore } from '../../stores/state'
-import config from '../../../../../config/modules.json'
+import config from '../../../../../packs/stitch-pack/config/modules.json';
+
+
 import { computed, onMounted, ref, watch } from 'vue'
 const stateStore = useStateStore()
 const { state } = storeToRefs(stateStore)
-const searchType = defineModel('Recommended')
+const searchType = defineModel({
+  default: 'Recommended'
+})
 const searchInput = defineModel('')
 const packagistModules = ref()
 const packagistTotal = ref(0)

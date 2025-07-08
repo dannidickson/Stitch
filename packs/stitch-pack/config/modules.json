@@ -9,7 +9,9 @@
   ],
   "presets": {
     "simple": {
-      "description": "A simple project",
+      "key": "simple",
+      "title": "Simple",
+      "description": "A simple project to get you started",
       "modules": [
         "silverstripe/linkfield",
         "dnadesign/silverstripe-elemental",
@@ -17,6 +19,8 @@
       ]
     },
     "recommended": {
+      "key": "recommended",
+      "title": "Jumpstart",
       "description": "Includes, linkfield, elemental, menu manger and some patterns",
       "modules": [
         "silverstripe/linkfield",
