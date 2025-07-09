@@ -1,6 +1,17 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
+interface PresetInterface {
+  title: string,
+  description: string,
+}
+
+interface PatternsInterface {
+  layouts: string[],
+  blocks: string[],
+  includes: string[],
+}
+
 export const useStateStore = defineStore('state', () => {
   const state = ref({
     projectDir: '',
@@ -9,13 +20,13 @@ export const useStateStore = defineStore('state', () => {
     useDDEV: true,
     installAlong: true,
     modules: [],
+    selectedPreset: {} as PresetInterface,
     usePatterns: true,
     allowPlugins: true,
-    patterns: {
-      layouts: [],
-      blocks: [],
-      includes: [],
-    },
+    patterns: {} as PatternsInterface,
+    pageSearch: '',
+    selectedPageType: '',
+    experienceType: '',
   })
 
   const setupWizard = ref('skip')

@@ -1,14 +1,50 @@
 {
-    "layouts": [
-        {
-            "name": "Full width page",
-            "description": "A page for full page content",
-            "location": "/PageTemplates/FullWidthPage/"
-        },
-        {
-            "name": "Restricted width (left side menu) page",
-            "description": "A page that has space for a left side menu",
-            "location": "/PageTemplates/RestrictedWidthPage/"
-        }
-    ]
+    "layouts": {
+        "title": "Page layouts",
+        "type": "layouts",
+        "items": [
+            {
+                "name": "Full width page",
+                "description": "A page for full page content",
+                "location": "/PageTemplates/FullWidthPage/",
+                "templatePath": "../templates/Pages/FullWidthPage/FullWidthPage.html"
+            },
+            {
+                "name": "Restricted width (left side menu) page",
+                "description": "A page that has space for a left side menu",
+                "location": "/PageTemplates/RestrictedWidthPage/",
+                "templatePath": "../templates/Pages/FullWidthPage/RestrictedWidthPage.html"
+            }
+        ]
+    },
+    "sections": {
+        "title": "Blocks",
+        "type": "blocks",
+        "items": [
+            {
+                "name": "Image and Text area",
+                "description": "A section with an image and text side by side.",
+                "location": "/Sections/ImageText/",
+                "templatePath": "../templates/Sections/ImageText/ImageText.html"
+            },
+            {
+                "name": "Tabs",
+                "description": "A section with tabbed navigation for content.",
+                "location": "/Sections/Tabs/",
+                "templatePath": "../templates/Sections/Tabs/Tabs.html"
+            },
+            {
+                "name": "Bento Box",
+                "description": "A section with a bento box style grid layout.",
+                "location": "/Sections/BentoBox/",
+                "templatePath": "../templates/Sections/BentoBox/BentoBox.html"
+            },
+            {
+                "name": "Cards",
+                "description": "A section displaying content as a set of cards.",
+                "location": "/packs/stitch-pack/templates/Sections/Cards/Cards.html",
+                "templatePath": "../templates/Sections/Cards/Cards.html"
+            }
+        ]
+    }
 }

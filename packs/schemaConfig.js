@@ -13,4 +13,4 @@ const packs = [
     // }
 ];
 
-export default schemaConfig;
+export default packs;
